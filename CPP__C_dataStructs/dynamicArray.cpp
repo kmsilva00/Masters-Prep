@@ -13,30 +13,62 @@ class DynamicArray{
         static_array = new int[l_capacity];
     };
 
-    DynamicArray* duplicateCapacity(){
+    void duplicateCapacity(){
         if(this -> capacity <= this -> size){
             this -> capacity = 2* this -> capacity;
         }
-        return this;
+    }    
+    
+    void addIntAtEnd(int toAdd){
+
+        if (this->size + 1 > this->capacity){
+           (*this).duplicateCapacity();
+        }
+
+        this->static_array[this->size] = toAdd;
+    
+        // NOW increment the size, because we've successfully added an element.
+        this->size += 1;
     }
 
-    void addIntIndexZero(DynamicArray* DA_p, int toAdd){
-        //
-        if(DA_p -> capacity < DA_p -> size){
-            (*DA_p).duplicateCapacity();
+    void addIntAtBeggining(int toAdd){
+
+        if (this->size + 1 > this->capacity){
+           (*this).duplicateCapacity();
         }
-        DA_p -> static_array[0] = toAdd;
+        this->size += 1;
+
+        for(int i = this->size; i>=0;i--){
+            this->static_array[i] = this->static_array[i-1];
+        }
+        this->static_array[0] = toAdd;
+        
+    }
+
+    
+
+    void printDynamicArray(){
+        std::cout << "[";
+
+        for(int i = 0; i < this -> size;i++){
+            std::cout << this -> static_array[i] << ","; 
+        }
+        std::cout << "]";
     }
 };
 
 int main()
 {
     
-    DynamicArray myArray(5);
+    DynamicArray myArray(6);
     DynamicArray* myArray_p = &myArray;
-    myArray.addIntIndexZero(myArray_p,5);
 
+    myArray.addIntAtEnd(5);
+    myArray.addIntAtEnd(12);
+    myArray.addIntAtEnd(8);
+    myArray.addIntAtEnd(4);
+    myArray.addIntAtBeggining(3);
 
-    std::cout << myArray_p -> static_array[0] << std::endl;
+    myArray.printDynamicArray();
 
 }
