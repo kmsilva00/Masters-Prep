@@ -45,6 +45,18 @@ class DynamicArray{
         
     }
 
+    void addIntAtIndex(int index, int toAdd){
+        if (this->size + 1 > this->capacity){
+           (*this).duplicateCapacity();
+        }
+        this->size += 1;
+
+        for( int i = this->size-1; i>index ; i-- ){
+            this -> static_array[i] = this -> static_array[i-1];
+        }
+        this->static_array[index] = toAdd;
+
+    }
     
 
     void printDynamicArray(){
@@ -68,7 +80,7 @@ int main()
     myArray.addIntAtEnd(8);
     myArray.addIntAtEnd(4);
     myArray.addIntAtBeggining(3);
-
+    myArray.addIntAtIndex(2,25);
     myArray.printDynamicArray();
 
 }
